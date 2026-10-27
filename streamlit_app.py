@@ -135,7 +135,7 @@ with st.sidebar:
     for tech in ["Scikit-learn", "XGBoost", "Pandas", "Plotly", "Streamlit", "FastAPI"]:
         st.markdown(f"<span class='badge'>⚙️ {tech}</span>", unsafe_allow_html=True)
     st.markdown("---")
-    st.caption("Built for BESYS Technologies Portfolio")
+    st.caption("Built as a portfolio project")
 
 # ── Hero ──────────────────────────────────────────────────────────────────────
 st.markdown("""

@@ -122,4 +122,4 @@ streamlit run streamlit_app.py
 ## 👤 Author
 
 **Daniel Molla** · [GitHub @danipy2](https://github.com/danipy2)  
-Built for BESYS Technologies PLC Portfolio · 2026
+Built as a portfolio project · 2026
