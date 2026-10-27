@@ -54,8 +54,11 @@ def predict_churn(customer_data: Dict) -> Dict:
     expected_cols = [col for col in scaler.feature_names_in_]
     df = df.reindex(columns=expected_cols, fill_value=0)
 
-    # Scale
-    X_scaled = scaler.transform(df)
+    # Scale — pass as DataFrame to preserve feature names and suppress warning
+    X_scaled = pd.DataFrame(
+        scaler.transform(df),
+        columns=expected_cols,
+    )
 
     # Predict
     churn_prob = model.predict_proba(X_scaled)[0][1]

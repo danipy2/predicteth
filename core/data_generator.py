@@ -119,7 +119,7 @@ def generate_dataset(n_samples: int = 10000, random_state: int = 42) -> pd.DataF
     churn_score += rng.normal(0, 0.05, n)
 
     # Convert to binary (target ~25% churn rate, realistic for telecom)
-    churn_probability = 1 / (1 + np.exp(-4 * (churn_score - 0.55)))
+    churn_probability = 1 / (1 + np.exp(-4 * (churn_score - 0.72)))
     churn = (rng.random(n) < churn_probability).astype(int)
 
     # Build DataFrame
