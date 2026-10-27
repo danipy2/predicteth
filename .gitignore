@@ -5,11 +5,12 @@ __pycache__/
 venv/
 env/
 
-# Data
-data/raw/
-data/processed/
-models/*.pkl
-models/*.joblib
+# Keep generated data in repo so Render always has it
+# data/raw/
+# data/processed/
+# Keep pre-trained models in repo so Render doesn't need to retrain on cold start
+# models/*.pkl
+# models/*.joblib
 
 # Environment
 .env
