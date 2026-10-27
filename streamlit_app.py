@@ -13,6 +13,7 @@ st.set_page_config(
 )
 
 import sys
+import pandas as pd
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -110,13 +111,6 @@ st.dataframe(df.head(10), use_container_width=True)
 col1, col2 = st.columns(2)
 with col1:
     st.markdown("**Data Types**")
-    st.dataframe(
-        pd.DataFrame({"dtype": df.dtypes, "non_null": df.count()})
-        if True else None
-    )
-
-import pandas as pd
-with col1:
     dtype_df = pd.DataFrame({"Type": df.dtypes.astype(str), "Non-Null": df.count()})
     st.dataframe(dtype_df, use_container_width=True)
 with col2:
