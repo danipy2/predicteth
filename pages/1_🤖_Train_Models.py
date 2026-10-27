@@ -94,31 +94,36 @@ with col3:
 
 if train_btn:
     progress = st.progress(0, text="⚙️ Preprocessing data...")
-    with st.spinner("Training models..."):
+    status = st.empty()
+    with st.spinner("Training models — this takes ~60 seconds..."):
         X_train, X_test, y_train, y_test, features, scaler, encoders = preprocess(df)
-        progress.progress(20, text="🔵 Training Logistic Regression...")
+        progress.progress(15, text="🔵 Training Logistic Regression...")
         results, best_name, best_model = train_all_models(X_train, X_test, y_train, y_test)
-        progress.progress(90, text="📊 Evaluating all models...")
+        progress.progress(95, text="💾 Saving models & metadata...")
         import joblib
         metadata = {"results": results, "best_model_name": best_name,
                     "feature_names": features, "encoders": encoders}
         joblib.dump(metadata, config.METADATA_FILE)
-        progress.progress(100, text="✅ Done!")
+        progress.progress(100, text="✅ Training complete!")
 
-    st.success(f"🏆 Training complete! Best model: **{best_name}** — check results below")
+    st.success(f"🏆 Training complete! Best model: **{best_name}** — results shown below")
     st.session_state.update({
         "training_results": results, "best_model_name": best_name,
         "feature_names": features, "best_model": best_model,
         "X_test": X_test, "y_test": y_test,
     })
+    st.rerun()
 
-# Load cached results
+# Load cached results from pre-trained files (always available on Render)
 if "training_results" not in st.session_state and config.METADATA_FILE.exists():
     import joblib
     metadata = joblib.load(config.METADATA_FILE)
     st.session_state["training_results"] = metadata["results"]
     st.session_state["best_model_name"]  = metadata["best_model_name"]
     st.session_state["feature_names"]    = metadata["feature_names"]
+    # Also load the best model object for feature importance display
+    if config.MODEL_FILE.exists():
+        st.session_state["best_model"] = joblib.load(config.MODEL_FILE)
 
 if "training_results" in st.session_state:
     results   = st.session_state["training_results"]
